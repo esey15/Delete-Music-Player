@@ -2,12 +2,12 @@ import processing.svg.*;
 
 //Global Variables
 //
-void setup()  {} //Endsetup
+void setup()  {} //End setup
 //
 void draw()  {} //End draw
 //
-void KeyPressed()  {} //End
+void keyPressed()  {} //End keyPressed
 //
-void mousePressed() {} //End
+void mousePressed() {} //End mousePressed
 //
 // End MAIN Program
