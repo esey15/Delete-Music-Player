@@ -1,22 +1,27 @@
 //Global Variables
-Int
+int appWidth, appHeight;
+float backgroundX,backgroundY,backgroundWidth,backgroundHeight;
 //
-  void setup() {
-  println("Width: "+width+"\tHeight: "+height+"\t\tDisplay Width: "+displayWidth+"\tDisplay"
-  //NULL:all values are NULL until size(), arithemtic errors
-  println( "Example Formula: add 1 to the width", width+1 );
-  //
-  //Display: CANVAS 7 Full Screen
+void setup() {
   size(400, 500); //width, height
   fullScreen(); //displayWidth, diplayHeight
   appWidth = displayWidth;
   appHeight= diplayHeight;
-  //println(appWidt, appHeight);
-  //Display Geomtry: Landscape, Portrait, Square
-  String displayInstructions ( appWidth >=appHeight ) ? "Good To Go" : "Bru, turn your phun";
+  //Landscape is HARDCODED
+  String displayInstructions = ( appWidth >=appHeight ) ? "Good To Go" : "Bru, turn your phun";
   println(displayInstructions);
-  //CONTINUE HERE: concatenation & display geometry
-  //declare landscape, portrait,  or square wuth tenary operator
+  //
+  //Populate
+  backgroundX= appWidth*0;
+  backgroundY= appHeight;
+  backgroundWidth=appWidth;
+  backgroundHeight=appHeight;
+  //Layout DIVs
+  //rect(X, Y, Width, Height);
+  rect(backgroundX,backgroundY,backgroundWidth,backgroundHeight);
+  int centerX = appWidth*1/2;
+  int centerY = appHeight*1/2;
+  rect(centerX*1/2, centerY*1/2, appWidth*1/2, appHeight*1/2);
 } //End setup
 //
 void draw() {
