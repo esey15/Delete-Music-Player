@@ -9,7 +9,7 @@ void setup() {
   size(400, 500); //width, height
   fullScreen(); //displayWidth, diplayHeight
   appWidth = displayWidth;
-  appHeight= diplayHeight;
+  appHeight= displayHeight;
   //Landscape is HARDCODED
   String displayInstructions = ( appWidth >=appHeight ) ? "Good To Go" : "Bru, turn your phun";
   println(displayInstructions);
@@ -19,10 +19,10 @@ void setup() {
   backgroundY= appHeight;
   backgroundWidth=appWidth;
   backgroundHeight=appHeight;
-  albumcoverX= appWidth*18/100; //Percents Example
-  albumcoverY= appHeight*15/100;
-  albumcoverWidth= appWidth*64/100;
-  albumcoverHeight=appHeight*6/16; //Fraction Example
+  albumcoverX= appWidth*13/100; //Percents Example
+  albumcoverY= appHeight*1/8;
+  albumcoverWidth= appWidth*74/100;
+  albumcoverHeight=appHeight*50.5/100; //Fraction Example
   playButtonX=appWidth*3.5/8;
   playButtonY=appHeight*8/9; 
   playButtonWidth=appWidth*1/8;
@@ -34,27 +34,7 @@ void setup() {
   //Layout DIVs
   //rect(X, Y, Width, Height);
   rect(backgroundX,backgroundY,backgroundWidth,backgroundHeight);
-  int centerX = appWidth*1/2;
-  int centerY = appHeight*1/2;
-  rect(centerX*1/2, centerY*1/2, appWidth*1/2, appHeight*1/2);
   rect(albumcoverX, albumcoverY, albumcoverWidth, albumcoverHeight);
-  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
-  rect(quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight);
-  /*
- 
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
-  rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
