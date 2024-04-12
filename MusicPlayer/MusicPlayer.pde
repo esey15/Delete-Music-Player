@@ -41,7 +41,6 @@ void setup() {
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
-  */
   //
   //CONTINUE HERE
   //Paper Flding for case Study
