@@ -15,7 +15,7 @@ void setup() {
   println(displayInstructions);
   //
   //Population
-  backgroundX= appWidth*0;
+  backgroundX= appWidth;
   backgroundY= appHeight;
   backgroundWidth=appWidth;
   backgroundHeight=appHeight;
