@@ -6,7 +6,7 @@ float playButtonX, playButtonY, playButtonWidth, playButtonHeight;
 float quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight;
 //
 void setup() {
-  size(400, 500); //width, height
+  size(100, 500); //width, height
   fullScreen(); //displayWidth, diplayHeight
   appWidth = displayWidth;
   appHeight= displayHeight;
@@ -35,12 +35,14 @@ void setup() {
   //rect(X, Y, Width, Height);
   rect(backgroundX,backgroundY,backgroundWidth,backgroundHeight);
   rect(albumcoverX, albumcoverY, albumcoverWidth, albumcoverHeight);
+  /*
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
   rect(X, Y, Width, Height);
+  */
   //
   //CONTINUE HERE
   //Paper Flding for case Study
