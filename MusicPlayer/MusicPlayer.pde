@@ -6,7 +6,7 @@ float playButtonX, playButtonY, playButtonWidth, playButtonHeight;
 float quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight;
 //
 void setup() {
-  size(100, 500); //width, height
+  size(400, 500); //width, height
   fullScreen(); //displayWidth, diplayHeight
   appWidth = displayWidth;
   appHeight= displayHeight;
