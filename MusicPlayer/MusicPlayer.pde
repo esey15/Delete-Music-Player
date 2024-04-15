@@ -15,22 +15,22 @@ void setup() {
   println(displayInstructions);
   //
   //Population
-  backgroundX= appWidth;
-  backgroundY= appHeight;
+  backgroundX=appWidth;
+  backgroundY=appHeight;
   backgroundWidth=appWidth;
   backgroundHeight=appHeight;
-  albumcoverX= appWidth*13/100; //Percents Example
-  albumcoverY= appHeight*1/8;
-  albumcoverWidth= appWidth*74/100;
+  albumcoverX=appWidth*13/100; //Percents Example
+  albumcoverY=appHeight*1/8;
+  albumcoverWidth=appWidth*74/100;
   albumcoverHeight=appHeight*50.5/100; //Fraction Example
   playButtonX=appWidth*3.5/8;
   playButtonY=appHeight*8/9; 
   playButtonWidth=appWidth*1/8;
   playButtonHeight=appHeight*1/12;
-  quitButtonX = appWidth*90/100;
-  quitButtonY = appHeight*91/100;
-  quitButtonWidth = appWidth*9/100;
-  quitButtonHeight = appHeight*8/100;
+  quitButtonX=appWidth*90/100;
+  quitButtonY=appHeight*91/100;
+  quitButtonWidth=appWidth*9/100;
+  quitButtonHeight=appHeight*8/100;
   //Layout DIVs
   //rect(X, Y, Width, Height);
   rect(backgroundX,backgroundY,backgroundWidth,backgroundHeight);
