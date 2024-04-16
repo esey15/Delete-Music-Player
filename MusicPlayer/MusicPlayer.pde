@@ -5,12 +5,14 @@ float albumcoverX, albumcoverY, albumcoverWidth, albumcoverHeight;
 float playButtonX, playButtonY, playButtonWidth, playButtonHeight;
 float quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight;
 //
-color backgroundColour, darkBackground, whiteBackground;
+color backgroundColour, darkBackground=0, whiteBackground=225; //Gray Scale 
+color foregroundColouur;
+color white=225, yellow=#FFFF00, black=0; //Hexidecimal, see tools / Colour selector
 Boolean whiteMode=false;
 //
 void setup() {
   size(400, 500); //width, height
-  fullScreen(); //displayWidth, diplayHeight
+  //fullScreen(); //displayWidth, diplayHeight
   appWidth = displayWidth;
   appHeight= displayHeight;
   //Landscape is HARDCODED
@@ -48,15 +50,22 @@ void setup() {
    rect(X, Y, Width, Height);
    */
   //Variable Population
-    darkBackground = 0, //Gray Scale, much smaller than COLOR
-    whiteBackground = 225; //Gray Scale, much smaller than COLOR
-  //if (hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
-  //if (hour()<9 && hour()>17 ) backgroundColour = darkBackground;
-  //if (whiteMode==true && hour()>=9 && hour()<=17 ) {
-  } else 
+    darkBackground = 0; //Gray Scale, much smaller than COLOR
+  whiteBackground = 225; //Gray Scale, much smaller than COLOR
+  white= 225;
+  yellow= #FFFF00;
+  
+  //if ( hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
+  //if ( hour()<9 && hour()>17 ) backgroundColour = darkBackground;
+  if ( whiteMode==true && hour()>=9 && hour()<=17 ) {
     backgroundColour = whiteBackground;
+    backgroundColour = darkBackground;
+    foregroundColour = #FFFFFF;
   } else {
     backgroundColour = darkBackground;
+    foregroungColour = yellow; //Note: if(hour)<9&&hour()>17)
+    if ( hour()>=9 && hour()<=17 ) foregroundColour = white;
+    
   }
   //
 } //End setup
@@ -66,10 +75,17 @@ void draw() {
   rect(quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight);
 } //End draw
 //
-void keyPressed() {
+void keyPressed() { //Listener
+  if (key=='Q' || key=='q')exit(); 
+  if (key==CODED && keyCode==UP) exit();
 } //End keyPressed
 //
-void mousePressed() {
+void mousePressed() { //Listener
+  //QUIT
+  if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY )
+  {
+     exit();
+  }
 } //End mousePressed
 //
 // End MAIN Program
