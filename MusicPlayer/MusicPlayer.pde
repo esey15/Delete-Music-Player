@@ -5,7 +5,7 @@ float albumcoverX, albumcoverY, albumcoverWidth, albumcoverHeight;
 float playButtonX, playButtonY, playButtonWidth, playButtonHeight;
 float quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight;
 //
-color backgroundColour, darkBackground=0, whiteBackground=225; //Gray Scale 
+color backgroundColour, darkBackground=0, whiteBackground=225; //Gray Scale, note much small
 color foregroundColouur;
 color white=225, yellow=#FFFF00, black=0; //Hexidecimal, see tools / Colour selector
 Boolean whiteMode=false;
@@ -50,39 +50,46 @@ void setup() {
    rect(X, Y, Width, Height);
    */
   //Variable Population
-    darkBackground = 0; //Gray Scale, much smaller than COLOR
-  whiteBackground = 225; //Gray Scale, much smaller than COLOR
-  white= 225;
-  yellow= #FFFF00;
-  
   //if ( hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
   //if ( hour()<9 && hour()>17 ) backgroundColour = darkBackground;
+  println(whiteMode);
   if ( whiteMode==true && hour()>=9 && hour()<=17 ) {
     backgroundColour = whiteBackground;
-    backgroundColour = darkBackground;
-    foregroundColour = #FFFFFF;
+    foregroundColour = black;
   } else {
     backgroundColour = darkBackground;
-    foregroungColour = yellow; //Note: if(hour)<9&&hour()>17)
+    foregroundColour = black; //Note: if(hour()<9&&hour()>17)
     if ( hour()>=9 && hour()<=17 ) foregroundColour = white;
-    
   }
   //
 } //End setup
 //
 void draw() {
-  background(backgroundColour); //Grayscale
+  background(backgroundColour);
+  fill(foregroundColour);
+  //
+  //Quit Button
+  //fill(purple);
+  //if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY+quitButtonHeight ) fill(yellow);
+  if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY+quitButtonHeight ) fill(yellow);
+   fill(yellow);
+  } else {
+    fill(purple);
+  }
   rect(quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight);
+  fill(foregroundColour); //Resetting the Defaults
+  println(mouseX, mouseY);
+  //
 } //End draw
 //
 void keyPressed() { //Listener
   if (key=='Q' || key=='q')exit(); 
-  if (key==CODED && keyCode==UP) exit();
+  if (key==CODED && keyCode==ESC) exit();
+  if (key=='w' || key=='w')exit() ; 
 } //End keyPressed
 //
 void mousePressed() { //Listener
-  //QUIT
-  if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY )
+  if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY+quitButtonHeight )
   {
      exit();
   }
