@@ -3,7 +3,8 @@ float titleX, titleY, titleWidth, titleHeight;
 PFont titleFont;
 String title="Wahoo!";
 int size;
-color purple=#FF00FF;
+color resetDefaultColour=#FFFFFF, purple=#FF00FF;
+//Note: Dark, Light, & Night Modes not considered
 //
 //Display Geoemtry, Display Orientation: landscape, portrait, square
 fullScreen();
@@ -23,8 +24,9 @@ titleHeight = appHeight*1/10;
 //Fonts from OS (Operating System)
 String[] fontList = PFont.list(); //To list all fonts available on OS
 printArray(fontList); //For listing all possible fonts to choose from, then createFont
-size = 55;
+size = ( appWidth > appHeight ) ? appHeight : appWidth ; // Font size starts with smaller dimension
 titleFont = createFont("Harrington", size);
+//bottomFont = createFont("", size); //Note: more than one font allowed
 // Tools / Create Font / Find Font / Use size field / Do not press "OK", known bug
 //
 //DIVs & rect()s: rect(X, Y, Width, Height);
@@ -35,6 +37,16 @@ rect(titleX, titleY, titleWidth, titleHeight);
 fill(purple); //Ink
 textAlign( CENTER, CENTER ); //Align X&Y, see Processing.org / Reference
 //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
-size = 20; //Note: CS20 studies size algorithm
+size = appHeight*1/13; // Var based on ratio of display
 textFont(titleFont, size);
 text(title, titleX, titleY, titleWidth, titleHeight);
+fill(resetDefaultColour);
+//
+/*
+fill(???); //Ink
+textAlign( ???, ??? ); //Align X&Y, see Processing.org / Reference
+//Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
+size = ??; //Note: CS20 studies size algorithm
+textFont(???, size);
+text(???, ???X, ???Y, ???Width, ???Height);
+fill(resetDefaultColour;);*/
