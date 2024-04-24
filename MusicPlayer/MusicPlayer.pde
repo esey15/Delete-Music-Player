@@ -8,7 +8,8 @@ import ddf.minim.ugens.*;
 //Global Variables
 Minim minim; //creates object to access all functions
 AudioPlayer soundEffects1;
-AudioPlayer playList1;
+AudioPlayer playList1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
+//
 int appWidth, appHeight;
 float backgroundX, backgroundY, backgroundWidth, backgroundHeight;
 float albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight;
@@ -32,19 +33,19 @@ void setup() {
   String displayInstructions = ( appWidth >= appHeight ) ? "Good To Go" : "Bru, turn your phun";
   println(displayInstructions);
   //
-  minim = new Minim(this); //load from data directory, loadFile should alson load from project
+  minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
   String extension = ".mp3";
-  String quitButtonSound = "CarDoorClosing.mp3";
-  String pathway = "../Audio/SoundEffect/"; //Relative Path
-  print( pathwaySoundEffects+quitButtonSound+extension)
-  String path = sketchpath( pathwaySoundeffects + quitButtonSound + extension ); //Absolute
-  println ( path );
-  soundEffects1 = minim.loadFile( path )
-  //soundEffects1 = minim.loadFile( path );
-  //playlist1 = minim.loadFile( path );
+  String quitButtonSound = "CarDoorClosing";
+  String pathwaySoundEffects = "../Audio/SoundEffect/"; //Relative Path
+  //println ( pathwaySoundEffects+quitButtonSound+extension );
+  String path = sketchPath( pathwaySoundEffects + quitButtonSound + extension ); //Absolute Path
+  //println ( path );
+  soundEffects1 = minim.loadFile( path );
+  //playList1 = minim.loadFile( path );
+  //
   //Fonts from OS (Operating System)
-  String[] fontList = PFont.list(); //To list all fonts available on OS
-  printArray(fontList); //For listing all possible fonts to choose from, then createFont
+  //String[] fontList = PFont.list(); //To list all fonts available on OS
+  //printArray(fontList); //For listing all possible fonts to choose from, then createFont
   size = ( appWidth > appHeight ) ? appHeight : appWidth ; // Font size starts with smaller dimension
   generalFont = createFont("Harrington", size);
   //bottomFont = createFont("", size); //Note: more than one font allowed
@@ -55,18 +56,18 @@ void setup() {
   backgroundY = appHeight*0;
   backgroundWidth = appWidth;
   backgroundHeight = appHeight;
-  albumCoverX = appWidth*13/100; //Percents Example
-  albumCoverY = appHeight*1/8;
-  albumCoverWidth = appWidth*74/100;
-  albumCoverHeight = appHeight*50.5/100; //Fraction Example
+  albumCoverX = appWidth*18/100; //Percents Example
+  albumCoverY = appHeight*15/100;
+  albumCoverWidth = appWidth*64/100;
+  albumCoverHeight = appHeight*6/16; //Fraction Example
   playButtonX = appWidth*3.5/8;
   playButtonY = appHeight*8/9;
   playButtonWidth = appWidth*1/8;
   playButtonHeight = appHeight*1/12;
   quitButtonX = appWidth*90/100;
   quitButtonY = appHeight*91/100;
-  quitButtonWidth = appWidth*90/100;
-  quitButtonHeight = appHeight*91/100;
+  quitButtonWidth = appWidth*9/100;
+  quitButtonHeight = appHeight*8/100;
   //Layout DIVs
   //rect(X, Y, Width, Height);
   //rect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
@@ -89,7 +90,7 @@ void setup() {
     if ( hour()>=9 && hour()<=17 ) foregroundColour = white;
   }
   //
-  soundEffects1.loop();
+  //soundEffects1.loop();
 } //End setup
 //
 void draw() {
@@ -124,19 +125,40 @@ void draw() {
 } //End draw
 //
 void keyPressed() { //Listener
-  if (key=='Q' || key=='q') exit();
-  if (key==CODED && keyCode==ESC) exit();
+  if (key=='Q' || key=='q')
+  {
+    soundEffects1.loop(0);
+    delay(2650); //Parameter: milliseconds
+    exit();
+  }
+  if (key==CODED && keyCode==ESC) //Hardcoded QUIT, no sound available
+  {
+    soundEffects1();
+  }
   if (key=='W' || key=='w') ;
+  
+  //soundEffects1.loop(0);
+  
+  
 } //End keyPressed
 //
 void mousePressed() { //Listener
   if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY+quitButtonHeight )
   {
     
-    soundEffects1.loop(0);
-    delay(3); //Parameter: miliseconds
+    int loopOnce = 0;
+    soundEffects1.loop(loopOnce);
+    delay(2650); //Parameter: milliseconds
     exit();
   }
 } //End mousePressed
 //
+void soundeffect_1() {
+   int loopOnce = 0;
+    soundEffects1.loop(loopOnce);
+    delay(timeForSoundEffects);
+    exit();
+
+
+
 // End MAIN Program
