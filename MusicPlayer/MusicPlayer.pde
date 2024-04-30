@@ -51,32 +51,7 @@ void setup() {
   //bottomFont = createFont("", size); //Note: more than one font allowed
   // Tools / Create Font / Find Font / Use size field / Do not press "OK", known bug
   //
-  //Population
-  backgroundX = appWidth*0;
-  backgroundY = appHeight*0;
-  backgroundWidth = appWidth;
-  backgroundHeight = appHeight;
-  albumCoverX = appWidth*18/100; //Percents Example
-  albumCoverY = appHeight*15/100;
-  albumCoverWidth = appWidth*64/100;
-  albumCoverHeight = appHeight*6/16; //Fraction Example
-  playButtonX = appWidth*3.5/8;
-  playButtonY = appHeight*8/9;
-  playButtonWidth = appWidth*1/8;
-  playButtonHeight = appHeight*1/12;
-  quitButtonX = appWidth*90/100;
-  quitButtonY = appHeight*91/100;
-  quitButtonWidth = appWidth*9/100;
-  quitButtonHeight = appHeight*8/100;
-  //Layout DIVs
-  //rect(X, Y, Width, Height);
-  //rect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
-  int centerX = appWidth*1/2;
-  int centerY = appHeight*1/2;
-  //rect(centerX*1/2, centerY*1/2, appWidth*1/2, appHeight*1/2);
-  //rect(albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight);
-  //rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
-  rect(quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight);
+  divs();
   //
   //Variable Population
   //if ( hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
@@ -133,7 +108,9 @@ void keyPressed() { //Listener
   }
   if (key==CODED && keyCode==ESC) //Hardcoded QUIT, no sound available
   {
-    soundEffects1();
+    soundEffects1.loop(0);
+    delay(2650); //parameter: miliseconds
+    exit();
   }
   if (key=='W' || key=='w') ;
   
@@ -145,20 +122,11 @@ void keyPressed() { //Listener
 void mousePressed() { //Listener
   if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY+quitButtonHeight )
   {
-    
-    int loopOnce = 0;
-    soundEffects1.loop(loopOnce);
+    soundEffects1.loop(0);
     delay(2650); //Parameter: milliseconds
     exit();
   }
 } //End mousePressed
 //
-void soundeffect_1() {
-   int loopOnce = 0;
-    soundEffects1.loop(loopOnce);
-    delay(timeForSoundEffects);
-    exit();
-
-
 
 // End MAIN Program
