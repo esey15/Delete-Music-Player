@@ -3,13 +3,14 @@ int appWidth, appHeight, brightness=255;
 float backgroundImageX, backgroundImageY, backgroundImageWidth, backgroundImageHeight;
 PImage backgroundImage;
 Boolean lightMode=false, dayMode=false, nightMode=false;
-//Boolean darkMode=false; //See keypressed 
+//Boolean darkMode=false; //See keypressed for NOTE
 //
 void setup() {
   //Display
+  size(600, 400);
   fullScreen();
-  appWidth = displayWidth;
-  appHeight = displayHeight;
+  appWidth = displayWidth; //displayWidth
+  appHeight = displayHeight; //displayHeight
   //Population
   backgroundImageX = appWidth*0;
   backgroundImageY = appHeight*0;
@@ -35,8 +36,15 @@ void draw() {
   background(255); //Day Mode, Light Mode ON / OFF, WHITE allowed
   //NOTE: lightMode ON = max saturation
   if ( lightMode == true ) {
+    backgrounndImageName = bike; //obiWan
+    path = pathway + landscape_Square + backgroundImageName + extension;
+    backgroundImage = loadImage( path );
     brightness = 255;
-  } else {
+  } 
+  else {
+    backgroundImageName = darthvader;
+    path = pathway + portrait + bathway
+    
     brightness = 28; //USER Preference: lowest brightness
   }
   tint(255, 255); //255 is max saturation, max colour

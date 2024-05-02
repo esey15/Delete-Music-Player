@@ -1,20 +1,23 @@
+/* Documentation
+ Library: use Sketch / Import Library / Add Library / Minim
+ Suporting Website: https://code.compartmental.net/minim/
+ - https://code.compartmental.net/minim/audioplayer_method_loop.html
+ - loop(0) seems best for sound effects
+ */
+//Library
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
 import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
-
+//
 //Global Variables
 Minim minim; //creates object to access all functions
 AudioPlayer soundEffects1;
 AudioPlayer playList1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
 //
 int appWidth, appHeight;
-float backgroundX, backgroundY, backgroundWidth, backgroundHeight;
-float albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight;
-float playButtonX, playButtonY, playButtonWidth, playButtonHeight;
-float quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight;
 int size;
 PFont generalFont;
 String quit="QUIT";
@@ -22,13 +25,13 @@ String quit="QUIT";
 color backgroundColour, darkBackground=0, whiteBackground=255; //Gray Scale, note much smaller than COLOR
 color foregroundColour;
 color white=255, yellow=#FFFF00, black=0, purple=#FF00FF; //Hexidecimal, see Tools / Colour Selector
-Boolean whiteMode=false;
+Boolean dayMode=false; //App starts in Night Mode
 //
 void setup() {
-  //size(400, 500); //width, height
-  fullScreen(); //displayWidth, displayHeight
-  appWidth = displayWidth;
-  appHeight = displayHeight;
+  size(600, 400); //width, height //400, 500
+  //fullScreen(); //displayWidth, displayHeight
+  appWidth = width; //displayWidth
+  appHeight = height; //displayHeight
   //Landscape is HARDCODED
   String displayInstructions = ( appWidth >= appHeight ) ? "Good To Go" : "Bru, turn your phun";
   println(displayInstructions);
@@ -56,7 +59,7 @@ void setup() {
   //Variable Population
   //if ( hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
   //if ( hour()<9 && hour()>17 ) backgroundColour = darkBackground;
-  if ( whiteMode==true && hour()>=9 && hour()<=17 ) {
+  if ( dayMode==true && hour()>=9 && hour()<=17 ) { //Day & Night Mode Clock Choice
     backgroundColour = whiteBackground;
     foregroundColour = black;
   } else {
@@ -69,7 +72,18 @@ void setup() {
 } //End setup
 //
 void draw() {
-  background(backgroundColour);
+  //Display
+  // background(backgroundColour); //Hardcoded Backgorund Colour Out, use IF to change
+  if ( lightMode == true ) { //Boolean keyBind
+    backgroundImageName = bike; //obiWan
+    path = pathway + landscape_Square + backgroundImageName + extension;
+    backgroundImage = loadImage( path );
+  } else {
+    backgroundImageName = darthvader;
+    path = pathway + portrait + backgroundImageName + extension;
+    backgroundImage = loadImage( path );
+  }
+  image( backgroundImage, backgroundImageX, backgroundImageY, backgroundImageWidth, backgroundImageHeight);
   fill(foregroundColour);
   //
   //Quit Button
@@ -93,38 +107,40 @@ void draw() {
   text(quit, quitButtonX+quitButtonWidth*1/7, quitButtonY+quitButtonHeight*1/7, quitButtonWidth*5/7, quitButtonHeight*5/7); //Inside rect() above
   fill(foregroundColour); //Resetting the Defaults
   //
+  //Albumn Cover Image
+  rect(albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight);
+  //
+
 
   //println(mouseX, mouseY);
-
   //
 } //End draw
 //
 void keyPressed() { //Listener
   if (key=='Q' || key=='q')
   {
-    soundEffects1.loop(0);
-    delay(2650); //Parameter: milliseconds
-    exit();
+    soundeffect_1();
   }
   if (key==CODED && keyCode==ESC) //Hardcoded QUIT, no sound available
   {
-    soundEffects1.loop(0);
-    delay(2650); //parameter: miliseconds
-    exit();
+    soundeffect_1();
   }
-  if (key=='W' || key=='w') ;
-  
+  //CAUTION, must return to "Request White, Light Mode"
+  if ( key=='W' || key=='w' ) { //Day Mode, White Light Containing Blue Colour
+    if (  lightMode == false ) {
+      lightMode = true;  //Light Mode ON
+    } else {
+      lightMode = false; //Dark Mode ON, no darkMode Boolean required
+    }
+  } //End Day Mode
+  //
   //soundEffects1.loop(0);
-  
-  
 } //End keyPressed
 //
 void mousePressed() { //Listener
   if ( mouseX>quitButtonX && mouseX<quitButtonX+quitButtonWidth && mouseY>quitButtonY && mouseY<quitButtonY+quitButtonHeight )
   {
-    soundEffects1.loop(0);
-    delay(2650); //Parameter: milliseconds
-    exit();
+    soundeffect_1();
   }
 } //End mousePressed
 //
