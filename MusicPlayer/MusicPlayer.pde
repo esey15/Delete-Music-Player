@@ -1,17 +1,3 @@
-/* Documentation
- Library: use Sketch / Import Library / Add Library / Minim
- Suporting Website: https://code.compartmental.net/minim/
- - https://code.compartmental.net/minim/audioplayer_method_loop.html
- - loop(0) seems best for sound effects
- */
-//Library
-import ddf.minim.*;
-import ddf.minim.analysis.*;
-import ddf.minim.effects.*;
-import ddf.minim.signals.*;
-import ddf.minim.spi.*;
-import ddf.minim.ugens.*;
-//
 //Global Variables
 Minim minim; //creates object to access all functions
 AudioPlayer soundEffects1;
@@ -22,16 +8,25 @@ int size;
 PFont generalFont;
 String quit="QUIT";
 //
+color white=255, yellow=#FFFF00, black=0, purple=#FF00FF; //Hexidecimal, see Tools / Colour Selector
+Boolean dayMode=false; //App starts in Night Mode, set to day in setup()
+Boolean lightMode=false; //Dark mode starts App, null possible if USER Preferences made
+//
 color backgroundColour, darkBackground=0, whiteBackground=255; //Gray Scale, note much smaller than COLOR
 color foregroundColour;
-color white=255, yellow=#FFFF00, black=0, purple=#FF00FF; //Hexidecimal, see Tools / Colour Selector
-Boolean dayMode=false; //App starts in Night Mode
+//
+String pathDarkBackgroundImage, pathLightBackgroundImage;
+PImage summerMarketPlaceBackground, darthvader, obiwan, bike;
+PImage backgroundImage;
+PImage albumCoverImage;
+float albumCoverRIGHT, albumCoverCENTERED, albumCoverLEFT;
 //
 void setup() {
-  size(600, 400); //width, height //400, 500
-  //fullScreen(); //displayWidth, displayHeight
-  appWidth = width; //displayWidth
-  appHeight = height; //displayHeight
+  //Display
+  //size(600, 400); //width, height //400, 500
+  fullScreen(); //displayWidth, displayHeight
+  appWidth = displayWidth; //width
+  appHeight = displayHeight; //height
   //Landscape is HARDCODED
   String displayInstructions = ( appWidth >= appHeight ) ? "Good To Go" : "Bru, turn your phun";
   println(displayInstructions);
@@ -57,15 +52,66 @@ void setup() {
   divs();
   //
   //Variable Population
+  //Images
+  String summerMarketPlaceImage = "Summer Knights Market Background Image";
+  String darthvader = "10-star-wars-darth-vader-portrait-wallpaper-1-325x485";
+  String obiWan = "Obi-wan-star-wars-jedi-23864621-800-600";
+  String bike = "bike";
+  String extensionPNG  = ".png";
+  String extensionJPG = ".jpg";
+  String pathway = "../Images/";
+  String landscape_Square = "Landscape & Square Images/";
+  String portrait = "Portrait/";
+  String backgroundFileName = "Background Image/";
+  pathLightBackgroundImage = pathway + backgroundFileName + summerMarketPlaceImage + extensionPNG;
+  pathDarkBackgroundImage = pathway + portrait + darthvader + extensionJPG;
+  String albumCoverImagePath = pathway + landscape_Square + obiWan + extensionJPG;
+  albumCoverImage = loadImage( albumCoverImagePath );
+  //
+  //Image Aspect Ratio Calculations
+  //NOTE: IF-Else & WHILE to Adjust Aspect Ratio Dimensions
+  //Forms a Procedure for Aspect Ratios of all Images ( copy and paste in setup() )
+  float smallerAlbumCoverDimension = ( albumCoverWidth < albumCoverHeight ) ? albumCoverWidth : albumCoverHeight ;
+  float albumCoverImageWidthPixel = 800.0; //Origonally INTs, ratio will be decimal
+  float albumCoverImageHeightPixel = 600.0; //CAUTION: must avoid truncation to ZERO Value
+  float albumCoverAspectRatio = albumCoverImageWidthPixel/albumCoverImageHeightPixel;
+  float largerAlbumCoverDimension = smallerAlbumCoverDimension*albumCoverAspectRatio; //Apsect Ratio
+  if ( albumCoverWidth < largerAlbumCoverDimension ) { //Image will not fit into DIV rect()
+    while ( albumCoverWidth < largerAlbumCoverDimension ) {
+      largerAlbumCoverDimension -= 1;
+      smallerAlbumCoverDimension -= 1;
+      //NOTE: ratios like percent are not linear decreases in both directions
+    }
+  }
+  albumCoverWidthAdjusted = largerAlbumCoverDimension;
+  albumCoverHeightAdjusted = smallerAlbumCoverDimension;
+  //
+  /*Image can be centered, left justified, or right justified on the larger dimension
+   LEFT: X-value of image same as rect()
+   CENTERED: X-value of image = albumCoverX + (albumCoverWidth-albumCoverWidthAdjusted)/2;
+   RIGHT: X-value of image = albumCoverX+albumCoverWidth-albumCoverWidthAdjusted;
+   */
+  albumCoverRIGHT = albumCoverX;
+  albumCoverCENTERED = albumCoverX + (albumCoverWidth-albumCoverWidthAdjusted)/2;
+  albumCoverLEFT =albumCoverX+albumCoverWidth-albumCoverWidthAdjusted;
+  //
+  //Time Calculations
   //if ( hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
   //if ( hour()<9 && hour()>17 ) backgroundColour = darkBackground;
-  if ( dayMode==true && hour()>=9 && hour()<=17 ) { //Day & Night Mode Clock Choice
+  if ( hour()>=9 && hour()<=17 ) dayMode=true; //Day & Night Mode Clock Choice
+  println();
+  if ( dayMode==true && lightMode==true ) { //Light & Dark Modes
     backgroundColour = whiteBackground;
     foregroundColour = black;
+    backgroundImage = loadImage( pathLightBackgroundImage ); //Changing this Variable with 3 different images
+  } else if ( lightMode==false ) {
+    backgroundColour = black;
+    foregroundColour = whiteBackground;
+    backgroundImage = loadImage( pathDarkBackgroundImage );
   } else {
     backgroundColour = darkBackground;
     foregroundColour = yellow; //Note: if(hour()<9&&hour()>17)
-    if ( hour()>=9 && hour()<=17 ) foregroundColour = white;
+    backgroundImage = loadImage( pathDarkBackgroundImage );
   }
   //
   //soundEffects1.loop();
@@ -74,17 +120,16 @@ void setup() {
 void draw() {
   //Display
   // background(backgroundColour); //Hardcoded Backgorund Colour Out, use IF to change
-  if ( lightMode == true ) { //Boolean keyBind
-    backgroundImageName = bike; //obiWan
-    path = pathway + landscape_Square + backgroundImageName + extension;
-    backgroundImage = loadImage( path );
+  if ( dayMode=true && lightMode == true ) { //Boolean keyBind, Logical Shortcut
+    //CAUTION: See setup
+    backgroundImage = loadImage( pathLightBackgroundImage );
+  } else if ( lightMode == false ) {
+    backgroundImage = loadImage( pathDarkBackgroundImage );
   } else {
-    backgroundImageName = darthvader;
-    path = pathway + portrait + backgroundImageName + extension;
-    backgroundImage = loadImage( path );
+    tint(255, 255, 255, 0); //no blue;
   }
-  image( backgroundImage, backgroundImageX, backgroundImageY, backgroundImageWidth, backgroundImageHeight);
-  fill(foregroundColour);
+  image( backgroundImage, backgroundX, backgroundY, backgroundWidth, backgroundHeight);
+  //fill(foregroundColour);
   //
   //Quit Button
   //fill(purple);
@@ -108,10 +153,8 @@ void draw() {
   fill(foregroundColour); //Resetting the Defaults
   //
   //Albumn Cover Image
-  rect(albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight);
+  image( albumCoverImage, albumCoverCENTERED, albumCoverY, albumCoverWidthAdjusted, albumCoverHeightAdjusted );
   //
-
-
   //println(mouseX, mouseY);
   //
 } //End draw
