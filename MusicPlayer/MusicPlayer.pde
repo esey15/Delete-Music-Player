@@ -1,3 +1,17 @@
+/* Documentation
+ Library: use Sketch / Import Library / Add Library / Minim
+ Suporting Website: https://code.compartmental.net/minim/
+ - https://code.compartmental.net/minim/audioplayer_method_loop.html
+ - loop(0) seems best for sound effects
+ */
+//Library
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+//
 //Global Variables
 Minim minim; //creates object to access all functions
 AudioPlayer soundEffects1;
@@ -32,9 +46,9 @@ void setup() {
   println(displayInstructions);
   //
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  String extension = ".mp3";
-  String quitButtonSound = "CarDoorClosing";
   String pathwaySoundEffects = "../Audio/SoundEffect/"; //Relative Path
+  String quitButtonSound = "CarDoorClosing";
+  String extension = ".mp3";
   //println ( pathwaySoundEffects+quitButtonSound+extension );
   String path = sketchPath( pathwaySoundEffects + quitButtonSound + extension ); //Absolute Path
   //println ( path );
