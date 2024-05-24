@@ -8,8 +8,6 @@ import ddf.minim.ugens.*;
 //
 //Global Variables
 Minim minim; //creates object to access all functions
-int numberSoundEffects = 4; //DEV Verify, OS able to count (CS20 Solution)
-int numberMusicSongs = 8; //DEV Verify, OS able to count (CS20 Solution)
 AudioPlayer[] playList = new AudioPlayer[ numberMusicSongs ]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
 AudioPlayer[] soundEffects = new AudioPlayer[ numberSoundEffects ]; //"Play List" for Sound Effects
 int currentSong = 0; //JAVA starts at 0, no for all languages
@@ -27,8 +25,8 @@ void setup() {
   //println(displayInstructions);
   //
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  String pathwaySoundEffects = "../../../Audio/SoundEffect/"; //Relative Path
-  String pathwayMusic = "../../../Audio/MusicDownload/"; //Relative Path
+  String pathwaySoundEffects = "../../../../../Audio/SoundEffect/"; //Relative Path
+  String pathwayMusic = "../../../../../Audio/MusicDownload/"; //Relative Path
   String quitButtonSound = "CarDoorClosing";
   String groove = "groove";
   String extension = ".mp3";
@@ -40,52 +38,36 @@ void setup() {
   soundEffects[0] = minim.loadFile( pathQuitButtonSound );
   playList[0] =  minim.loadFile( pathGrooveSong ); // "" is compiler error
   //
-  //Note: Music starts before CANVAS ... Purpose of Player
-  //Note: See Easter Egg about Time-On and Looping Songs
-  //playList[currentSong].loop(0); //Testing Only
+  
+  //
+  
   //
 } //End setup
 //
 void draw() {
   println( "Song Position", playList[currentSong].position(), "Song Length", playList[currentSong].length() );
-  //
-  //ERROR: only plays beginning of song before starting again
-  //playList[currentSong].loop(0);
-  //
-  /*Note: For Loop Feature
-   Easter Egg: program time for number of song loops
-   Alternate to timer for music player, times to the end of a song
-   if ( playList[currentSong].isLooping() && playList[currentSong].loopCount()!=-1 ) println("There are", playList[currentSong].loopCount(), "loops left.");
-   if ( playList[currentSong].isLooping() && playList[currentSong].loopCount()==-1 ) println("Looping Infinitely");
-   */
-  //
-  if ( !playList[currentSong].isPlaying() ) println( "Nothing is playing, Pick a Song" );
-  if ( playList[currentSong].isPlaying() && !playList[currentSong].isLooping() ) println("Play Once");
-  //
-  /*
-  if ( playList[currentSong].isPlaying() ) {
-   //Empty IF, TRUE
-   } else {
-   //currentSong at end of FILE
-   playList[currentSong].rewind();
-   currentSong = currentSong + 1; //currentSong++; currentSong+=1
-   playList[currentSong].play();
-   }
-   */
 } //End draw
 //
 void keyPressed() {
-  if ( key=='P' || key=='p' ) { //Play Pause Button
-     if (  ) { //Notetrue==true  {
-       playList[currentSong].play();  //playList[currentSong].play
-     } else {
-       playList[currentSong].play();  //playList[currentSong].pause
-     }
- } //End Play Pause Button
+  //Preferences, might need to be in draw()
+  //Local, might need to be Global
+  int skip = 5000; //Basic Preference
+  if ( key=='H' || key=='h' ) skip = 5000 ;
+  if ( key=='G' || key=='g' ) skip = 10000 ;
+  if ( key=='G' || key=='g' ) { //Two Preference Option
+   if ( skip == 5000 ) {
+      skip =int ( playList[0].length()*0.25); //tuncated to nearest millisecond
+   } else {
+     skip= 5000;
+   }
+  }  
+  //priintln(skip);
+  //
+  if ( key=='F' || key=='F' ) playList[0].skip( skip ); //SKIP Forward 1 secind (1000 milliseconds)
+  if ( key=='R' || key=='r' ) playList[0].skip( -skip ); //SKIP Forward 1 secind (1000 milliseconds)
 } //End keyPressed
 //
-void mousePressed() {
-} //End mousPressed
+void mousePressed() {} //End mousPressed
 //
 //End MAIN Program
 //
