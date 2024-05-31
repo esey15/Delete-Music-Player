@@ -12,18 +12,12 @@ int numberSoundEffects = 4; //DEV Verify, OS able to count (CS20 Solution)
 int numberMusicSongs = 8; //DEV Verify, OS able to count (CS20 Solution)
 AudioPlayer[] playList = new AudioPlayer[ numberMusicSongs ]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
 AudioPlayer[] soundEffects = new AudioPlayer[ numberSoundEffects ]; //"Play List" for Sound Effects
-AudioMetaData[] playListMetaData; //ERROR, what is he problem?
 int currentSong = 0; //JAVA starts counting at 0, not for all languages
 //
 int appWidth, appHeight;
 //
 Boolean looping=false;
 //Protects .rewind in draw() from being inappropriately accessed between .play(), .loop(1), & .loop()
-//
-String testingOnly = "1"; // Note: "one"
-PFont generalFont;
-//PFont othersAvailable
-color black = #000000, white=#FFFFFF, nightInk=#FFFF00; //reminders about NightMode
 //
 void setup() {
   //Display
@@ -35,27 +29,58 @@ void setup() {
   String displayInstructions = ( appWidth >= appHeight ) ? "Good To Go" : "Bru, turn your phun";
   //println(displayInstructions);
   //
-  //Font Code
-  createFont( "harrington", appHeight );
-  //
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
   String pathwaySoundEffects = "../../../../Audio/SoundEffect/"; //Relative Path
   String pathwayMusic = "../../../../Audio/MusicDownload/"; //Relative Path
   String quitButtonSound = "CarDoorClosing";
   String groove = "groove";
+  String beatYourCompetition = "Beat_Your_Competition";
+  String cycles = "Cycles";
+  String eureka = "Eureka";
+  String ghostWalk = "Ghost_Walk";
+  String newsroom = "Newsroom";
+  String startYourEngines = "Start_Your_Engines";
+  String theSimplest = "the_simplest";
   String extension = ".mp3";
   //println ( pathwaySoundEffects+quitButtonSound+extension );
   //println ( "Relative Pathway:", pathwayMusic+groove+extension );
   String pathQuitButtonSound = sketchPath( pathwaySoundEffects + quitButtonSound + extension ); //Absolute Path
   String pathGrooveSong = sketchPath( pathwayMusic + groove + extension ); //Absolute Path
-  //println ( "Absolute Pathway:", pathGrooveSong ); //pathQuitButtonSound
+  String pathBeatYourCompetitionSong = sketchPath( pathwayMusic + beatYourCompetition + extension ); //Absolute Path
+  String pathCyclesSong = sketchPath( pathwayMusic + cycles + extension ); //Absolute Path
+  String pathEurekaSong = sketchPath( pathwayMusic + eureka + extension ); //Absolute Path
+  String pathGhostWalkSong = sketchPath( pathwayMusic + ghostWalk + extension ); //Absolute Path
+  String pathNewsroomSong = sketchPath( pathwayMusic + newsroom + extension ); //Absolute Path
+  String pathStartYourEnginesSong = sketchPath( pathwayMusic + startYourEngines + extension ); //Absolute Path
+  String pathTheSimplestSong = sketchPath( pathwayMusic + theSimplest + extension ); //Absolute Path
+  println ( "Absolute Pathway:", pathTheSimplestSong ); //pathQuitButtonSound
   soundEffects[0] = minim.loadFile( pathQuitButtonSound );
-  playList[0] =  minim.loadFile( pathGrooveSong ); // "" is compiler error
-  playListMetaData[0] = playList[0].getMetaData(); //reads song meta 1, like song 1, mimicin
+  //
+  //Note: currentSong, currentSong+=1, currentSong++
+  println ( "The current song is:", currentSong );
+  //
+  playList[currentSong] =  minim.loadFile( pathGrooveSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong+=1] =  minim.loadFile( pathBeatYourCompetitionSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong++] =  minim.loadFile( pathCyclesSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong++] =  minim.loadFile( pathEurekaSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong++] =  minim.loadFile( pathGhostWalkSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong++] =  minim.loadFile( pathNewsroomSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong++] =  minim.loadFile( pathStartYourEnginesSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  playList[currentSong++] =  minim.loadFile( pathTheSimplestSong ); // "" is compiler error
+  println( "The current song is:", currentSong );
+  currentSong = 7;
+  println( "The current song is:", currentSong );
   //
   //Note: Music starts before CANVAS ... Purpose of Player
   //Note: See Easter Egg about Time-On and Looping Songs
-  //playList[currentSong].loop(0); //Testing Only
+  playList[currentSong].loop(0); //Testing Only, change parameter to the accruate number
   //
 } //End setup
 //
@@ -89,8 +114,6 @@ void draw() {
      playList[currentSong].play();
      */
   }
-  //MUTE Fix
-  if ( playList[currentSong].isMuted() ) println( "Muted" ); //END MUTE Fix
   /* Previous IF-Else
    if ( playList[currentSong].isPlaying() ) {
    //Empty IF, TRUE
@@ -98,20 +121,6 @@ void draw() {
    playList[currentSong].rewind(); //CAUTION: !.isPlaying() & .rewind() = STOP
    }
    */
-   //
-   //Printing text to Console | CANVAS
-   rect(width*1/4, height*0, width*1/2, height*1/10); //Text DIV
-   fill(white); //Ink
-   textAlign (CENTER, CENTER); //Align X&Y, seee Processing.org / Reference
-   int size = 43; //Change the number until it fits, largest font size
-   textFont(generalFont, size); //CAUTION: SIZE is hardcoded, needs to be changed manually
-   printArray( playListMetaData ); //Hard Drive Address to where the meta Data is
-   //printArray( playListMetaData ); //Hard Drive Address to where the meta Data is
-   //println()
-   
-   println("String Variable is:", testingOnly);
-   text(testingOnly, width*1/4, height*0, width*1/2, height*1/10);
-   fill(255); //Reset to white for rest of the program
 } //End draw
 //
 void keyPressed() {
@@ -136,15 +145,6 @@ void keyPressed() {
     playList[currentSong].rewind(); //Affects LOOP Times
     looping = false;
   } // End STOP Button
-  if ( key=='M' || key=='m' ) {
-    //Note: mute individual songs if multiple songs are playing
-    //CAUTION: potential fatal error
-    if ( playList[currentSong].isMuted() ) {
-      playList[currentSong].unmute();
-    } else {
-      playList[currentSong].mute() ;
-    }
-  }
   //
 } //End keyPressed
 //
