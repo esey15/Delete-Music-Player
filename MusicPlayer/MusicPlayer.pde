@@ -13,11 +13,9 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 //
 //Global Variables
-Minim minim; //creates object to access all function
+Minim minim; //creates object to access all functions
 AudioPlayer playList1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
-AudioPlayer soundEffects1; //"Play List" for sound Effects
-albumCoverWidthAdjusted = largerAlbumCoverDimension;
-albumCoverHeightAdjusted = smallerAlbumCoverDimension;
+AudioPlayer soundEffects1; //"Play List" for Sound Effects
 //
 int appWidth, appHeight;
 //
@@ -45,7 +43,7 @@ void setup() {
   appWidth = displayWidth; //width
   appHeight = displayHeight; //height
   //Landscape is HARDCODED
-  String displayInstructions = ( appWidth >= appHeight ) ?  "Good To Go" : "Bru, turn your phun";
+  String displayInstructions = ( appWidth >= appHeight ) ? "Good To Go" : "Bru, turn your phun";
   println(displayInstructions);
   //
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
@@ -100,7 +98,9 @@ void setup() {
       //NOTE: ratios like percent are not linear decreases in both directions
     }
   }
- //
+  albumCoverWidthAdjusted = largerAlbumCoverDimension;
+  albumCoverHeightAdjusted = smallerAlbumCoverDimension;
+  //
   /*Image can be centered, left justified, or right justified on the larger dimension
    LEFT: X-value of image same as rect()
    CENTERED: X-value of image = albumCoverX + (albumCoverWidth-albumCoverWidthAdjusted)/2;
@@ -114,8 +114,8 @@ void setup() {
   //if ( hour()>=9 && hour()<=17 ) backgroundColour = whiteBackground;
   //if ( hour()<9 && hour()>17 ) backgroundColour = darkBackground;
   if ( hour()>=9 && hour()<=17 ) dayMode=true; //Day & Night Mode Clock Choice
-  println();
-  if ( dayMode==true && lightMode==true ) { //Light & Dark Modes
+  //println(dayMode);
+  if ( dayMode==true && lightMode==true ) { //Light & Dark Modes, Logical Shortcut
     backgroundColour = whiteBackground;
     foregroundColour = black;
     backgroundImage = loadImage( pathLightBackgroundImage ); //Changing this Variable with 3 different images

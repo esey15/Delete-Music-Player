@@ -1,9 +1,9 @@
 float backgroundX, backgroundY, backgroundWidth, backgroundHeight;
-float albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight;
+float albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight, albumCoverWidthAdjusted, albumCoverHeightAdjusted;
 float playButtonX, playButtonY, playButtonWidth, playButtonHeight;
 float quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight;
 //
-void divs() {
+void divs() { //Access all of subprogram in order
   population();
   drawRects();
 } //End DIVs
@@ -25,17 +25,19 @@ void population() {
   quitButtonY = appHeight*91/100;
   quitButtonWidth = appWidth*9/100;
   quitButtonHeight = appHeight*8/100;
-} //End population
+} //End Population
 //
-void drawRects(); { //Layout DIVs 
-//Layout DIVs
-  //rect(X, Y, Width, Height);
+void drawRects() { //Layout DIVs
+  //Formula: rect(X, Y, Width, Height);
+  //
   //rect(backgroundX, backgroundY, backgroundWidth, backgroundHeight);
+  //
   int centerX = appWidth*1/2;
   int centerY = appHeight*1/2;
   //rect(centerX*1/2, centerY*1/2, appWidth*1/2, appHeight*1/2);
-  //rect(albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight);
-  //rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
+  //
+  rect(albumCoverX, albumCoverY, albumCoverWidth, albumCoverHeight);
+  rect(playButtonX, playButtonY, playButtonWidth, playButtonHeight);
   rect(quitButtonX, quitButtonY, quitButtonWidth, quitButtonHeight);
   //
 } //End Draw Rectangles
